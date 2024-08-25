@@ -1,7 +1,7 @@
 pipeline {
     agent { docker { image 'node:20.17.0-alpine3.20' } }
     environment {
-        DIRECTORY_PATH         = 'var/jenkins_home/workspace/my-pipeline-project'
+        DIRECTORY_PATH         = 'var/jenkins_home/workspace/sit-753-task-5-1'
         TESTING_ENVIRONMENT    = 'test-env'
         PRODUCTION_ENVIRONMENT = 'daniel-garcia'
     }
