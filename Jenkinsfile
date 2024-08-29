@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     environment {
         DIRECTORY_PATH         = 'var/jenkins_home/workspace/sit-753-task-5-1'
         TESTING_ENVIRONMENT    = 'test-env'
