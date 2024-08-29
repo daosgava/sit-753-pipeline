@@ -8,35 +8,50 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Fetch the source code from the directory path specified by the environment variable: ${env.DIRECTORY_PATH}"
-                echo "Compile the code and generate any necessary artifacts"
+                echo "Task: Fetch the source code from ${env.DIRECTORY_PATH}, compile the code, and generate necessary artifacts."
+                echo "Tool: npm for Node.js."
             }
         }
         stage('Test') { 
             steps {
-                echo "Unit tests"
-                echo "Integration tests"
+                echo "Task: Run unit tests and integration tests."
+                echo "Tools: Jest for unit tests in Node.js."
             }
         }
         stage('Code Quality Check') {
             steps {
-                echo "Check the quality of the code"
+                echo "Task: Perform code quality analysis."
+                echo "Tool: SonarQube."
             }
         }
-        stage('Deploy') {
+        stage('Security Scan') {
             steps {
-                echo "Deploy the application to a testing environment specified by the environment variable: ${env.TESTING_ENVIRONMENT}"
+                echo "Task: Perform a security scan on the code to identify vulnerabilities."
+                echo "Tool: OWASP Dependency Check."
+            }
+        }
+        stage('Deploy to Staging') {
+            steps {
+                echo "Task: Deploy the application to the testing environment (${env.TESTING_ENVIRONMENT})."
+                echo "Tool: AWS EKS (Elastic Kubernetes Service) for containerized applications."
             }
         }
         stage('Approval') {
             steps {
-                echo "Simulating manual approval by pausing for 10 seconds"
-                sleep time: 10, unit: 'SECONDS'
+                echo "Task: Simulate manual approval process."
+                echo "Tool: Pause the pipeline for a manual approval (e.g., sleep or input step)."
+            }
+        }
+        stage('Integration Tests on Staging') {
+            steps {
+                echo "Task: Run integration tests in the staging environment."
+                echo "Tool: Selenium for integration testing."
             }
         }
         stage('Deploy to Production') {
             steps {
-                echo "Deploy the code to the production environment specified by the environment variable: ${env.PRODUCTION_ENVIRONMENT}"
+                echo "Task: Deploy the application to the production environment (${env.PRODUCTION_ENVIRONMENT})."
+                echo "Tool: AWS EKS (Elastic Kubernetes Service) for containerized applications."
             }
         }
     }
