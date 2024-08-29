@@ -20,15 +20,11 @@ pipeline {
             }
             post {
                 success {
-                    script {
-                        def testResult = currentBuild.currentResult
-                        emailext(
-                            subject: "Jenkins: Test Stage - ${testResult}",
-                            body: "The Test stage has ${testResult}. Please check the attached logs for details.",
-                            to: "${env.EMAIL_RECIPIENT}",
-                            attachLog: true
-                        )
-                    }
+                    def testResult = currentBuild.currentResult
+                    mail to: "${env.EMAIL_RECIPIENT}",
+                    subject: "Jenkins: Test Stage - ${testResult}",
+                    body: "The Test stage has ${testResult}. Please check the attached logs for details.",
+                    attachLog: true
                 }
             }
         }
@@ -45,9 +41,11 @@ pipeline {
             }
             post {
                 success {
+                    def securityScanResult = currentBuild.currentResult
                     mail to: "${env.EMAIL_RECIPIENT}",
                     subject: "Jenkins: Security Scan Stage - ${securityScanResult}",
                     body: "The Security Scan stage has ${securityScanResult}. Please check the attached logs for details.",
+                    attachLog: true
                 }
             }
         }
