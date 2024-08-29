@@ -4,7 +4,7 @@ pipeline {
         DIRECTORY_PATH         = 'var/jenkins_home/workspace/sit-753-task-5-1'
         TESTING_ENVIRONMENT    = 'test-env'
         PRODUCTION_ENVIRONMENT = 'daniel-garcia-vargas'
-        EMAIL_RECIPIENT        = 'daosgava.garcia@example.com'
+        EMAIL_RECIPIENT        = 'daosgava.garcia@gmail.com'
     }
     stages {
         stage('Build') {
