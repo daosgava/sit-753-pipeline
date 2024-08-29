@@ -19,7 +19,7 @@ pipeline {
                 echo "Tools: Jest for unit tests in Node.js."
             }
             post {
-                always {
+                success {
                     script {
                         def testResult = currentBuild.currentResult
                         emailext(
@@ -44,16 +44,10 @@ pipeline {
                 echo "Tool: OWASP Dependency Check."
             }
             post {
-                always {
-                    script {
-                        def securityScanResult = currentBuild.currentResult
-                        emailext(
-                            subject: "Jenkins: Security Scan Stage - ${securityScanResult}",
-                            body: "The Security Scan stage has ${securityScanResult}. Please check the attached logs for details.",
-                            to: "${env.EMAIL_RECIPIENT}",
-                            attachLog: true
-                        )
-                    }
+                success {
+                    mail to: "${env.EMAIL_RECIPIENT}",
+                    subject: "Jenkins: Security Scan Stage - ${securityScanResult}",
+                    body: "The Security Scan stage has ${securityScanResult}. Please check the attached logs for details.",
                 }
             }
         }
