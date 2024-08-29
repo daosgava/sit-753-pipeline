@@ -4,6 +4,7 @@ pipeline {
         DIRECTORY_PATH         = 'var/jenkins_home/workspace/sit-753-task-5-1'
         TESTING_ENVIRONMENT    = 'test-env'
         PRODUCTION_ENVIRONMENT = 'daniel-garcia-vargas'
+        EMAIL_RECIPIENT        = 'daosgava.garcia@example.com'
     }
     stages {
         stage('Build') {
@@ -17,6 +18,19 @@ pipeline {
                 echo "Task: Run unit tests and integration tests."
                 echo "Tools: Jest for unit tests in Node.js."
             }
+            post {
+                always {
+                    script {
+                        def testResult = currentBuild.currentResult
+                        emailext(
+                            subject: "Jenkins: Test Stage - ${testResult}",
+                            body: "The Test stage has ${testResult}. Please check the attached logs for details.",
+                            to: "${env.EMAIL_RECIPIENT}",
+                            attachLog: true
+                        )
+                    }
+                }
+            }
         }
         stage('Code Quality Check') {
             steps {
@@ -28,6 +42,19 @@ pipeline {
             steps {
                 echo "Task: Perform a security scan on the code to identify vulnerabilities."
                 echo "Tool: OWASP Dependency Check."
+            }
+            post {
+                always {
+                    script {
+                        def securityScanResult = currentBuild.currentResult
+                        emailext(
+                            subject: "Jenkins: Security Scan Stage - ${securityScanResult}",
+                            body: "The Security Scan stage has ${securityScanResult}. Please check the attached logs for details.",
+                            to: "${env.EMAIL_RECIPIENT}",
+                            attachLog: true
+                        )
+                    }
+                }
             }
         }
         stage('Deploy to Staging') {
