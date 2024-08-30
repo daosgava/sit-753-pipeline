@@ -10,13 +10,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Task: Fetch the source code from ${env.DIRECTORY_PATH}, compile the code, and generate necessary artifacts."
-                echo "Tool: npm for Node.js."
+                echo "Tool: npm for Node.js. - change"
             }
         }
         stage('Test') { 
             steps {
                 echo "Task: Run unit tests and integration tests."
                 echo "Tools: Jest for unit tests in Node.js."
+                sh 'echo "Test log content: Simulated test logs." > test.log'
             }
             post {
                 success {
@@ -36,6 +37,7 @@ pipeline {
             steps {
                 echo "Task: Perform a security scan on the code to identify vulnerabilities."
                 echo "Tool: OWASP Dependency Check."
+                sh 'echo "Security Scan log content: Simulated security scan logs." > security-scan.log'
             }
             post {
                 success {
