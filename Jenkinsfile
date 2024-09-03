@@ -17,12 +17,12 @@ pipeline {
             steps {
                 echo "Task: Run unit tests and integration tests."
                 echo "Tools: Jest for unit tests in Node.js."
-                sh 'echo "Test log content: Simulated test logs." > test.log'
+                sh 'echo "Test log content: Simulated test logs." > test.text'
             }
             post {
                 success {
-                    archiveArtifacts artifacts: 'test.log', onlyIfSuccessful: true
-                    emailext attachLog: true, attachmentsPattern: 'test.log',
+                    archiveArtifacts artifacts: 'test.text', onlyIfSuccessful: true
+                    emailext attachLog: true, attachmentsPattern: 'test.text',
                     body: "The Test stage has ${currentBuild.currentResult}. Please check the attached logs for details.",
                     subject: "Jenkins: Test Stage - ${currentBuild.currentResult}",
                     to: "${env.EMAIL_RECIPIENT}"
@@ -39,12 +39,12 @@ pipeline {
             steps {
                 echo "Task: Perform a security scan on the code to identify vulnerabilities."
                 echo "Tool: OWASP Dependency Check."
-                sh 'echo "Security Scan log content: Simulated security scan logs." > security-scan.log'
+                sh 'echo "Security Scan log content: Simulated security scan logs." > security-scan.text'
             }
             post {
                 success {
-                    archiveArtifacts artifacts: 'security-scan.log', onlyIfSuccessful: true
-                    emailext attachLog: true, attachmentsPattern: 'security-scan.log',
+                    archiveArtifacts artifacts: 'security-scan.text', onlyIfSuccessful: true
+                    emailext attachLog: true, attachmentsPattern: 'security-scan.text',
                     body: "The Security Scan stage has ${currentBuild.currentResult}. Please check the attached logs for details.",
                     to: "${env.EMAIL_RECIPIENT}",
                     subject: "Jenkins: Security Scan Stage - ${currentBuild.currentResult}"
