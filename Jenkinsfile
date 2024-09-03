@@ -23,9 +23,9 @@ pipeline {
                 success {
                     archiveArtifacts artifacts: 'test.log', onlyIfSuccessful: true
                     emailext attachLog: true, attachmentsPattern: 'test.log',
-                    body: "The Test stage has ${currentBuild.currentResult}. Please check the attached logs for details."
+                    body: "The Test stage has ${currentBuild.currentResult}. Please check the attached logs for details.",
                     subject: "Jenkins: Test Stage - ${currentBuild.currentResult}",
-                    to: "${env.EMAIL_RECIPIENT}",
+                    to: "${env.EMAIL_RECIPIENT}"
                 }
             }
         }
@@ -45,9 +45,9 @@ pipeline {
                 success {
                     archiveArtifacts artifacts: 'security-scan.log', onlyIfSuccessful: true
                     emailext attachLog: true, attachmentsPattern: 'security-scan.log',
-                    body: "The Security Scan stage has ${currentBuild.currentResult}. Please check the attached logs for details."
+                    body: "The Security Scan stage has ${currentBuild.currentResult}. Please check the attached logs for details.",
                     to: "${env.EMAIL_RECIPIENT}",
-                    subject: "Jenkins: Security Scan Stage - ${currentBuild.currentResult}",
+                    subject: "Jenkins: Security Scan Stage - ${currentBuild.currentResult}"
                 }
             }
         }
