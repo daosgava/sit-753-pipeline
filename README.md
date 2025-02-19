@@ -1,1 +1,1 @@
-# sit-753-pipeline
+# Jenkins Pipeline Exercise
